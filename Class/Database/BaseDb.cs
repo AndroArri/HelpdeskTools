@@ -8,24 +8,51 @@ using System.Text;
 
 namespace helpDeskTools.Class.Database
 {
-    class BaseDb : IBaseDb
+    public class BaseDb : IBaseDb
     {
-        public string ConnectionString;
+        private string _connectionString;
 
-        public BaseDb(string addressDb, string database, string username, string pwd)
+        public override string ConnectionString
         {
-            ConnectionString =
-                $"Provider = SQLNCLI11; Server = {addressDb}; Database = {database}; Uid = {username}; Pwd = {pwd};";
+            get =>_connectionString ?? (_connectionString = Properties.Settings.Default.ConnectionString);
+            internal set
+            {
+                Properties.Settings.Default.ConnectionString = value;
+                Properties.Settings.Default.Save();
+            } 
         }
 
-        private DataSet ExtractStructureDatabase(string dbName)
+        public bool SetConnectionString(string addressDb, string database, string username, string pwd)
         {
-            SqlConnection sqlconn = new SqlConnection(ConnectionString);
-            FileInfo script = new FileInfo(Path.GetFullPath("script\\EstrapolazioneTabelle.sql"));
-            string query = script.OpenText().ReadToEnd();
+            try
+            {
+                ConnectionString =
+                    $"Provider = SQLNCLI11; Server = {addressDb}; Database = {database}; Uid = {username}; Pwd = {pwd};";
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            
+        }
 
-
+        public override DataSet ExtractStructureDatabase()
+        {
+            try
+            {
+                SqlConnection sqlconn = new SqlConnection(_connectionString);
+                FileInfo script = new FileInfo(Path.GetFullPath("script\\EstrapolazioneTabelle.sql"));
+                string query = script.OpenText().ReadToEnd();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
             return new DataSet();
         }
     }
+
 }
