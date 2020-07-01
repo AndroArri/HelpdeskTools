@@ -5,12 +5,19 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
+using 
 
 namespace helpDeskTools.Class.Database
 {
     public class BaseDb : IBaseDb
     {
         private string _connectionString;
+        public  string TableName;
+        public string ColumnName;
+        public string DataType;
+        public int DataLength;
+
 
         public override string ConnectionString
         {
@@ -26,8 +33,7 @@ namespace helpDeskTools.Class.Database
         {
             try
             {
-                ConnectionString =
-                    $"Provider = SQLNCLI11; Server = {addressDb}; Database = {database}; Uid = {username}; Pwd = {pwd};";
+
                 return true;
             }
             catch (Exception e)
@@ -37,21 +43,27 @@ namespace helpDeskTools.Class.Database
             
         }
 
-        public override DataSet ExtractStructureDatabase()
+        public override DataTable ExtractStructureDatabase()
         {
             try
             {
-                SqlConnection sqlconn = new SqlConnection(_connectionString);
+                SqlConnection sqlconn = new SqlConnection(ConnectionString);
                 FileInfo script = new FileInfo(Path.GetFullPath("script\\EstrapolazioneTabelle.sql"));
                 string query = script.OpenText().ReadToEnd();
+                SqlCommand comm = new SqlCommand(query, sqlconn);
+                sqlconn.Open();
+                SqlDataReader dataReader = comm.ExecuteReader();
+                if(!dataReader.HasRows) return  new DataTable();
+
+                DataTable result = new DataTable();
+                result.Load(dataReader);
+                sqlconn.Close();
+                return result;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                return new DataTable();
             }
-            
-            return new DataSet();
         }
     }
 

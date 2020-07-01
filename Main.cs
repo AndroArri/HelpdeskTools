@@ -29,9 +29,20 @@ namespace helpDeskTools
         private void Btn_LoadDb_Click(object sender, EventArgs e)
         {
             IBaseDb baseDb = new BaseDb();
-            baseDb.ExtractStructureDatabase();
-
+            Dgv_Table.DataSource = baseDb.ExtractStructureDatabase();
+            Dgv_Table.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 
         }
+
+        private void Dgv_Table_SelectionChanged(object sender, EventArgs e)
+        {
+            if (Dgv_Table.SelectedCells.Count > 0)
+            {
+                int selectedRowIndex = Dgv_Table.SelectedCells[0].RowIndex;
+                Lbl_TableName.Text = Dgv_Table.Rows[selectedRowIndex].Cells[0].Value.ToString();
+            }
+        
+
+    }
     }
 }

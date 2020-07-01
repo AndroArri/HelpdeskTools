@@ -8,11 +8,11 @@ namespace helpDeskTools.Class.Database
 {
     public abstract class IBaseDb
     {
-        public string TableName;
-        public string ColumnName;
-        public string DataType;
-        public int DataLength;
+        public string TableName { get; internal set; }
+        public string ColumnName { get; internal set; }
+        public string DataType { get; internal set; }
+        public int DataLength { get; internal set; }
         public abstract string ConnectionString { get; internal set; }
-        public abstract DataSet ExtractStructureDatabase();
+        public abstract DataTable ExtractStructureDatabase();
     }
 }
