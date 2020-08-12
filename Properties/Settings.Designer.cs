@@ -26,12 +26,24 @@ namespace helpDeskTools.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ConnectionString {
+        public string ArxConnectionString {
             get {
-                return ((string)(this["ConnectionString"]));
+                return ((string)(this["ArxConnectionString"]));
             }
             set {
-                this["ConnectionString"] = value;
+                this["ArxConnectionString"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HDToolConnectionString {
+            get {
+                return ((string)(this["HDToolConnectionString"]));
+            }
+            set {
+                this["HDToolConnectionString"] = value;
             }
         }
     }

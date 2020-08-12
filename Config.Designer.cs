@@ -51,8 +51,9 @@
             // 
             this.txtPwd.Location = new System.Drawing.Point(15, 180);
             this.txtPwd.Name = "txtPwd";
+            this.txtPwd.PasswordChar = '*';
             this.txtPwd.Size = new System.Drawing.Size(270, 20);
-            this.txtPwd.TabIndex = 1;
+            this.txtPwd.TabIndex = 3;
             // 
             // txtUser
             // 
@@ -66,7 +67,7 @@
             this.txtNameDb.Location = new System.Drawing.Point(15, 80);
             this.txtNameDb.Name = "txtNameDb";
             this.txtNameDb.Size = new System.Drawing.Size(270, 20);
-            this.txtNameDb.TabIndex = 3;
+            this.txtNameDb.TabIndex = 1;
             // 
             // label1
             // 
@@ -109,7 +110,7 @@
             this.btnCancel.Location = new System.Drawing.Point(155, 216);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 8;
+            this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Annulla";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -119,7 +120,7 @@
             this.btnSave.Location = new System.Drawing.Point(242, 216);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 9;
+            this.btnSave.TabIndex = 5;
             this.btnSave.Text = "Salva";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);

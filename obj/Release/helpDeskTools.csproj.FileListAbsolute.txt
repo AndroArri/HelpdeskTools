@@ -1,0 +1,11 @@
+C:\Git\HelpdeskTools\bin\Release\Script\ScriptNomeTabelle.sql
+C:\Git\HelpdeskTools\bin\Release\Script\ScriptTabelle.sql
+C:\Git\HelpdeskTools\bin\Release\helpDeskTools.exe.config
+C:\Git\HelpdeskTools\bin\Release\helpDeskTools.exe
+C:\Git\HelpdeskTools\bin\Release\helpDeskTools.pdb
+C:\Git\HelpdeskTools\obj\Release\helpDeskTools.Config.resources
+C:\Git\HelpdeskTools\obj\Release\helpDeskTools.Main.resources
+C:\Git\HelpdeskTools\obj\Release\helpDeskTools.Properties.Resources.resources
+C:\Git\HelpdeskTools\obj\Release\helpDeskTools.csproj.GenerateResource.cache
+C:\Git\HelpdeskTools\obj\Release\helpDeskTools.exe
+C:\Git\HelpdeskTools\obj\Release\helpDeskTools.pdb
