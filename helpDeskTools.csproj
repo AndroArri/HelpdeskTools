@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>helpDeskTools</RootNamespace>
     <AssemblyName>helpDeskTools</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -29,6 +29,7 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,6 +41,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,6 +51,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>CB72997C7A33E7FA7CE5E140CD44195CBEE0D02C</ManifestCertificateThumbprint>
@@ -71,6 +74,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -84,9 +88,11 @@
     <Compile Include="Class\ConnectionString\IConnectionString.cs" />
     <Compile Include="Class\Database\ArxDB.cs" />
     <Compile Include="Class\Database\BaseDb.cs" />
-    <Compile Include="Class\ConnectionString\ArxConnectionString.cs" />
-    <Compile Include="Class\Database\HDToolDB.cs" />
-    <Compile Include="Class\Database\HelpDeskToolsDb.cs" />
+    <Compile Include="Class\Database\HdToolDB\PartialClass\DM_CONNECTION.cs" />
+    <Compile Include="Class\Database\HdToolDB\PartialClass\DM_ROW.cs" />
+    <Compile Include="Class\Database\HdToolDB\PartialClass\DM_TABLE.cs" />
+    <Compile Include="Class\Database\HdToolDB\HDToolDB.cs" />
+    <Compile Include="Class\Database\HdToolDB\PartialClass\HelpDeskToolsDb.cs" />
     <Compile Include="Class\Database\IBaseDb.cs" />
     <Compile Include="Config.cs">
       <SubType>Form</SubType>
@@ -146,5 +152,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

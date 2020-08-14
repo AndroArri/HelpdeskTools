@@ -2,16 +2,19 @@
 using System.Data;
 using System.Windows.Forms;
 using helpDeskTools.Class.Database;
+using helpDeskTools.Class.Database.HdToolDB;
+using System.Data.Linq;
+using System.Linq;
 
 namespace helpDeskTools
 {
     public partial class Main : Form
     {
 
-        private DataTable TableResult = new DataTable();
         private string _TableNameSelected;
         private ArxDb arxDb = new ArxDb();
-        private HDToolDB hdToolDb = new HDToolDB();
+        private HdToolDb hdToolDb = new HdToolDb();
+        private DataTable tableRow = new DataTable();
         public Main()
         {
             InitializeComponent();
@@ -25,8 +28,8 @@ namespace helpDeskTools
 
         private void Btn_LoadDb_Click(object sender, EventArgs e)
         {
-            TableResult = arxDb.ExtractTableName();
-            Dgv_TableName.DataSource = arxDb.ExtractStructureDatabase();
+            tableRow = arxDb.ExtractStructureDatabase();
+            Dgv_TableName.DataSource = arxDb.ExtractTableName();
             
         }
 
@@ -36,8 +39,9 @@ namespace helpDeskTools
             if (Dgv_TableName.SelectedCells.Count > 0)
             {
                 LoadTableNameDescription();
-
-                DataView dataView = new DataView(TableResult)
+                
+                
+                DataView dataView = new DataView(tableRow)
                 {
                     RowFilter = string.Concat("TableName = '", _TableNameSelected, "'")
                 };
@@ -54,7 +58,6 @@ namespace helpDeskTools
             {
                 //LoadTableNameDescription();
                 LoadRowDescription();
-
             }
 
         }
@@ -62,9 +65,9 @@ namespace helpDeskTools
 
         private void btn_SaveDescriptionTableName_Click(object sender, EventArgs e)
         {
-            HDToolDB hdToolDb = new HDToolDB();
+            HdToolDb hdToolDb = new HdToolDb();
             MessageBox.Show(
-                hdToolDb.SaveArxDescriptionTable(_TableNameSelected, Rtb_TableNameDescription.Text, arxDb.ArxConnectionString)
+                hdToolDb.SaveArxDescriptionTable(_TableNameSelected, Rtb_TableNameDescription.Text )
                     ? "Errore durante il salvataggio della descrizione della tabella"
                     : "Descrizione tabella salvata con successo");
         }
@@ -76,10 +79,12 @@ namespace helpDeskTools
 
         private void LoadTableNameDescription()
         {
+            if(Dgv_TableName.SelectedCells.Count == 0 ) return;
+            
             int selectedRowIndex = Dgv_TableName.SelectedCells[0].RowIndex;
             _TableNameSelected = Dgv_TableName.Rows[selectedRowIndex].Cells[0].Value.ToString();
             Lbl_TableName.Text = _TableNameSelected;
-            Rtb_TableNameDescription.Text = hdToolDb.GetArxDescriptionTable(_TableNameSelected, arxDb.ArxConnectionString);
+            Rtb_TableNameDescription.Text = hdToolDb.GetArxDescriptionTable(_TableNameSelected);
         }
 
         private void LoadRowDescription()
@@ -89,7 +94,7 @@ namespace helpDeskTools
             string rowNameSelected = Dgv_TableRow.Rows[selectedRowIndex].Cells[1].Value.ToString();
             lbl_NameDescriptionRow.Text = rowNameSelected;
             //GetArxDescriptionRow
-            rtb_DescriptionRow.Text = hdToolDb.GetArxDescriptionRow(_TableNameSelected, rowNameSelected, arxDb.ArxConnectionString);
+            rtb_DescriptionRow.Text = hdToolDb.GetArxDescriptionRow(_TableNameSelected, rowNameSelected);
 
         }
 
@@ -98,8 +103,7 @@ namespace helpDeskTools
             int selectedRowIndex = Dgv_TableRow.SelectedCells[0].RowIndex;
             string rowNameSelected = Dgv_TableRow.Rows[selectedRowIndex].Cells[1].Value.ToString();
 
-            hdToolDb.SaveArxDescriptionRow(_TableNameSelected, rowNameSelected, rtb_DescriptionRow.Text,
-                arxDb.ArxConnectionString);
+            hdToolDb.SaveArxDescriptionRow(_TableNameSelected, rowNameSelected, rtb_DescriptionRow.Text);
         }
     }
 }
