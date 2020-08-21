@@ -40,6 +40,10 @@
             this.lbl_NameDescriptionRow = new System.Windows.Forms.Label();
             this.btn_CancelDescriptionRow = new System.Windows.Forms.Button();
             this.btn_SaveDescriptionRow = new System.Windows.Forms.Button();
+            this.txt_FindTable = new System.Windows.Forms.TextBox();
+            this.txt_FilterRow = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv_TableName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv_TableRow)).BeginInit();
             this.SuspendLayout();
@@ -80,9 +84,9 @@
             this.Lbl_TableName.AutoSize = true;
             this.Lbl_TableName.Location = new System.Drawing.Point(313, 94);
             this.Lbl_TableName.Name = "Lbl_TableName";
-            this.Lbl_TableName.Size = new System.Drawing.Size(35, 13);
+            this.Lbl_TableName.Size = new System.Drawing.Size(69, 13);
             this.Lbl_TableName.TabIndex = 4;
-            this.Lbl_TableName.Text = "label1";
+            this.Lbl_TableName.Text = "Nome tabella";
             // 
             // Dgv_TableName
             // 
@@ -147,9 +151,9 @@
             this.lbl_NameDescriptionRow.AutoSize = true;
             this.lbl_NameDescriptionRow.Location = new System.Drawing.Point(1121, 94);
             this.lbl_NameDescriptionRow.Name = "lbl_NameDescriptionRow";
-            this.lbl_NameDescriptionRow.Size = new System.Drawing.Size(35, 13);
+            this.lbl_NameDescriptionRow.Size = new System.Drawing.Size(55, 13);
             this.lbl_NameDescriptionRow.TabIndex = 9;
-            this.lbl_NameDescriptionRow.Text = "label1";
+            this.lbl_NameDescriptionRow.Text = "Nome riga";
             // 
             // btn_CancelDescriptionRow
             // 
@@ -170,11 +174,49 @@
             this.btn_SaveDescriptionRow.UseVisualStyleBackColor = true;
             this.btn_SaveDescriptionRow.Click += new System.EventHandler(this.btn_SaveDescriptionRow_Click);
             // 
+            // txt_FindTable
+            // 
+            this.txt_FindTable.Location = new System.Drawing.Point(12, 68);
+            this.txt_FindTable.Name = "txt_FindTable";
+            this.txt_FindTable.Size = new System.Drawing.Size(295, 20);
+            this.txt_FindTable.TabIndex = 12;
+            this.txt_FindTable.TextChanged += new System.EventHandler(this.txt_FindTable_TextChanged);
+            // 
+            // txt_FilterRow
+            // 
+            this.txt_FilterRow.Location = new System.Drawing.Point(674, 68);
+            this.txt_FilterRow.Name = "txt_FilterRow";
+            this.txt_FilterRow.Size = new System.Drawing.Size(441, 20);
+            this.txt_FilterRow.TabIndex = 13;
+            this.txt_FilterRow.TextChanged += new System.EventHandler(this.txt_FilterRow_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 49);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Filtro tabella";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(671, 49);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(49, 13);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Filtro riga";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1486, 809);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txt_FilterRow);
+            this.Controls.Add(this.txt_FindTable);
             this.Controls.Add(this.btn_CancelDescriptionRow);
             this.Controls.Add(this.btn_SaveDescriptionRow);
             this.Controls.Add(this.lbl_NameDescriptionRow);
@@ -211,6 +253,10 @@
         private System.Windows.Forms.Label lbl_NameDescriptionRow;
         private System.Windows.Forms.Button btn_CancelDescriptionRow;
         private System.Windows.Forms.Button btn_SaveDescriptionRow;
+        private System.Windows.Forms.TextBox txt_FindTable;
+        private System.Windows.Forms.TextBox txt_FilterRow;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
 
