@@ -19,11 +19,7 @@ namespace helpDeskTools.Class.Database.HdToolDB
 
         public HdToolDb()
         {
-            _hdToolDb = new DataContext(_hdToolConnection.ConnectionString);
-            _dmConnections = _hdToolDb.GetTable<DM_CONNECTION>();
-            _dmTables = _hdToolDb.GetTable<DM_TABLE>();
-            _dmRows = _hdToolDb.GetTable<DM_ROW>();
-            _arxConnectionString.ConnectionString = LoadArxConnectionString();
+            RefreshDataFromDb();
         }
 
 
@@ -46,12 +42,13 @@ namespace helpDeskTools.Class.Database.HdToolDB
 
                 _dmConnections.InsertOnSubmit(dmConnectionInsert);
                 _hdToolDb.SubmitChanges();
+                RefreshDataFromDb();
 
             }
             catch (Exception e)
             {
                 return false;
-                
+
             }
 
             return true;
@@ -66,7 +63,7 @@ namespace helpDeskTools.Class.Database.HdToolDB
                 UserID = user,
                 Password = pwd
             };
-            
+
             return SaveArxConnectionString(sqlConnection);
         }
 
@@ -100,7 +97,7 @@ namespace helpDeskTools.Class.Database.HdToolDB
                 from dmTable in _dmTables
                 where dmTable.TABLENAME == tableName
                 select dmTable.ID;
-            return idDescriptionTable.Any() ? 0 : idDescriptionTable.FirstOrDefault();
+            return idDescriptionTable.Any() ? idDescriptionTable.FirstOrDefault() : 0;
 
         }
 
@@ -118,7 +115,7 @@ namespace helpDeskTools.Class.Database.HdToolDB
             {
                 throw new Exception(e.Message);
             }
-            
+
         }
 
 
@@ -148,6 +145,7 @@ namespace helpDeskTools.Class.Database.HdToolDB
                     }
                 }
                 _hdToolDb.SubmitChanges();
+                RefreshDataFromDb();
             }
             catch (Exception e)
             {
@@ -156,19 +154,42 @@ namespace helpDeskTools.Class.Database.HdToolDB
             return true;
         }
 
+        private void RefreshDataFromDb()
+        {
+            _hdToolDb?.Dispose();
+            _hdToolDb = new DataContext(_hdToolConnection.ConnectionString);
+            _dmConnections = _hdToolDb.GetTable<DM_CONNECTION>();
+            _dmTables = _hdToolDb.GetTable<DM_TABLE>();
+            _dmRows = _hdToolDb.GetTable<DM_ROW>();
+            _arxConnectionString.ConnectionString = LoadArxConnectionString();
+        }
+
+
+
         public bool SaveArxDescriptionRow(string tableName, string row, string description)
         {
             try
             {
                 IQueryable<DM_TABLE> dmTables = _dmTables.Where(x => x.TABLENAME == tableName);
+
                 if (dmTables.Any())
                 {
-                    _dmRows.InsertOnSubmit(new DM_ROW()
+                    IQueryable<DM_ROW> dmRows = _dmRows.Where(x => x.ID_TABLE == dmTables.FirstOrDefault().ID && x.ROW == row);
+                    if (dmRows.Any())
                     {
-                        ID_TABLE = dmTables.FirstOrDefault().ID,
-                        ROW = row,
-                        DESCRIPTION = description
-                    });
+                        dmRows.FirstOrDefault().DESCRIPTION = description;
+                    }
+                    else
+                    {
+                        
+                        _dmRows.InsertOnSubmit(new DM_ROW()
+                        {
+                            ID_TABLE = dmTables.FirstOrDefault().ID,
+                            ROW = row,
+                            DESCRIPTION = description
+                        });
+                    }
+                    
                 }
                 else
                 {
@@ -184,12 +205,14 @@ namespace helpDeskTools.Class.Database.HdToolDB
                     }
 
                 }
+                _hdToolDb.SubmitChanges();
+                RefreshDataFromDb();
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
-            return false;
+            return true;
         }
 
 
@@ -215,7 +238,7 @@ namespace helpDeskTools.Class.Database.HdToolDB
             {
                 IQueryable<DM_TABLE> dmTables = _dmTables.Where(x => x.TABLENAME == tableName);
 
-                IQueryable<DM_ROW> dmRows = _dmRows.Where(x => x.ROW == rowName);
+                IQueryable<DM_ROW> dmRows = _dmRows.Where(x => (x.ROW == rowName) && (x.ID_TABLE == dmTables.FirstOrDefault().ID));
 
                 if (!dmRows.Any()) return "";
 
