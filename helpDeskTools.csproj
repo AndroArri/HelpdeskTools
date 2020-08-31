@@ -145,6 +145,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Img\Logo-ARXivar_marchio.png" />
     <Content Include="Script\ScriptNomeTabelle.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
