@@ -16,25 +16,26 @@ namespace helpDeskTools
         private HdToolDb hdToolDb = new HdToolDb();
         private DataTable tableName = new DataTable();
         private DataTable tableRow = new DataTable();
+
         public Main()
         {
             InitializeComponent();
         }
 
-        private void Btn_Config_Click(object sender, EventArgs e)
-        {
-            var frmConfig = new Config();
-            frmConfig.ShowDialog(this);
-        }
-
-        private void Btn_LoadDb_Click(object sender, EventArgs e)
+        private void Main_Load(object sender, EventArgs e)
         {
             tableRow = arxDb.ExtractStructureDatabase();
             tableName = arxDb.ExtractTableName();
             Dgv_TableName.DataSource = tableName;
-
         }
 
+
+        private void Btn_Config_Click(object sender, EventArgs e)
+        {
+            var frmConfig = new Config();
+            frmConfig.ShowDialog(this);
+
+        }
 
         private void Dgv_DescriptionTableName_SelectionChanged(object sender, EventArgs e)
         {
@@ -93,7 +94,7 @@ namespace helpDeskTools
             string rowNameSelected = Dgv_TableRow.Rows[selectedRowIndex].Cells[1].Value.ToString();
             lbl_NameDescriptionRow.Text = rowNameSelected;
             //GetArxDescriptionRow
-            rtb_DescriptionRow.Text = hdToolDb.GetArxDescriptionRow(_TableNameSelected, rowNameSelected);
+            Rtb_DescriptionRow.Text = hdToolDb.GetArxDescriptionRow(_TableNameSelected, rowNameSelected);
 
         }
 
@@ -102,32 +103,44 @@ namespace helpDeskTools
             int selectedRowIndex = Dgv_TableRow.SelectedCells[0].RowIndex;
             string rowNameSelected = Dgv_TableRow.Rows[selectedRowIndex].Cells[1].Value.ToString();
 
-            hdToolDb.SaveArxDescriptionRow(_TableNameSelected, rowNameSelected, rtb_DescriptionRow.Text);
+            hdToolDb.SaveArxDescriptionRow(_TableNameSelected, rowNameSelected, Rtb_DescriptionRow.Text);
         }
 
         private void txt_FindTable_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                if (txt_FindTable.Text.Length >= 1)
+                if (txt_FindTable.Text.Length >= 3)
                 {
-                    DataView dataView = new DataView(tableName)
-                    {
-                        RowFilter = string.Format("TableName LIKE '%{0}%'", txt_FindTable.Text)
-                    };
-                    Dgv_TableName.DataSource = dataView;
+                    SetFilter();
                 }
-                else if (txt_FindTable.Text.Length == 0)
-                {
-                    Dgv_TableName.DataSource = tableName;
-                }
-
+                
             }
             catch (Exception exception)
             {
                 throw new Exception(exception.Message);
             }
         }
+
+        private bool SetFilter()
+        {
+            if (txt_FindTable.Text.Length >= 1)
+            {
+                DataView dataView = new DataView(tableName)
+                {
+                    RowFilter = string.Format("TableName LIKE '%{0}%'", txt_FindTable.Text)
+                };
+                Dgv_TableName.DataSource = dataView;
+            }
+            else if (txt_FindTable.Text.Length == 0)
+            {
+                Dgv_TableName.DataSource = tableName;
+            }
+
+            return true;
+        }
+
+
 
         private void txt_FilterRow_TextChanged(object sender, EventArgs e)
         {
@@ -162,5 +175,7 @@ namespace helpDeskTools
                 Dgv_TableName.DataSource = tableName;
             }
         }
+
+        
     }
 }
