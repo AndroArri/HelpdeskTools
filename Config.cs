@@ -1,15 +1,18 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 using helpDeskTools.Class.ConnectionString;
 using helpDeskTools.Class.Database;
 using helpDeskTools.Class.Database.HdToolDB;
+using helpDeskTools.Class.Database.HdToolDB.PartialClass;
 
 namespace helpDeskTools
 {
     public partial class Config : Form
     {
 
-        private HdToolDb hdToolDb = new HdToolDb();
+        private HelpDeskToolsDb hdToolDb;
+        private DataTable dmConnection = new DataTable();
 
         public Config()
         {
@@ -19,10 +22,9 @@ namespace helpDeskTools
 
         private void LoadConfiguration()
         {
-            txtAddress.Text = hdToolDb._arxConnectionString.DataSource;
-            txtNameDb.Text = hdToolDb._arxConnectionString.InitialCatalog;
-            txtUser.Text = hdToolDb._arxConnectionString.UserID;
-            txtPwd.Text = hdToolDb._arxConnectionString.Password;
+            
+            hdToolDb = new HelpDeskToolsDb(HdToolConnectionString.ConnectionString);
+            dgv_ConnectionList.DataSource = hdToolDb.DM_CONNECTIONs;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

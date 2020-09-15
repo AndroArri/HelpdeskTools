@@ -29,6 +29,8 @@ namespace helpDeskTools.Class.Database.HdToolDB.PartialClass
 			OnCreated();
 		}
 
+		public static string ID_ALIAS = "ID";
+
 		[Column(Storage = "_ID", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
 		public int ID
 		{
@@ -49,6 +51,7 @@ namespace helpDeskTools.Class.Database.HdToolDB.PartialClass
 			}
 		}
 
+		public static string CONNECTIONSTRING_ALIAS = "CONNECTIONSTRING";
 		[Column(Storage = "_CONNECTIONSTRING", DbType = "VarChar(500)")]
 		public string CONNECTIONSTRING
 		{

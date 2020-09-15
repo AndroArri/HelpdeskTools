@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.Btn_LoadDb = new System.Windows.Forms.Button();
             this.Lbl_TableName = new System.Windows.Forms.Label();
             this.lbl_NameDescriptionRow = new System.Windows.Forms.Label();
@@ -45,12 +46,24 @@
             this.Navigator = new ComponentFactory.Krypton.Docking.KryptonDockableNavigator();
             this.Documentazione = new ComponentFactory.Krypton.Navigator.KryptonPage();
             this.txt_FilterRow = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.dMTABLEBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iDCONNECTIONDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tABLENAMEDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dESCRIPTIONDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dMROWBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.iDDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iDTABLEDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rOWDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dESCRIPTIONDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv_TableName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv_TableRow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Navigator)).BeginInit();
             this.Navigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Documentazione)).BeginInit();
             this.Documentazione.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dMTABLEBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dMROWBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // Btn_LoadDb
@@ -120,9 +133,16 @@
             // 
             this.Dgv_TableName.AllowUserToAddRows = false;
             this.Dgv_TableName.AllowUserToDeleteRows = false;
+            this.Dgv_TableName.AutoGenerateColumns = false;
             this.Dgv_TableName.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.Dgv_TableName.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.Dgv_TableName.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Dgv_TableName.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.iDDataGridViewTextBoxColumn,
+            this.iDCONNECTIONDataGridViewTextBoxColumn,
+            this.tABLENAMEDataGridViewTextBoxColumn,
+            this.dESCRIPTIONDataGridViewTextBoxColumn});
+            this.Dgv_TableName.DataSource = this.dMTABLEBindingSource;
             this.Dgv_TableName.Location = new System.Drawing.Point(7, 58);
             this.Dgv_TableName.Name = "Dgv_TableName";
             this.Dgv_TableName.ReadOnly = true;
@@ -134,9 +154,16 @@
             // 
             this.Dgv_TableRow.AllowUserToAddRows = false;
             this.Dgv_TableRow.AllowUserToDeleteRows = false;
+            this.Dgv_TableRow.AutoGenerateColumns = false;
             this.Dgv_TableRow.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.Dgv_TableRow.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.Dgv_TableRow.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Dgv_TableRow.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.iDDataGridViewTextBoxColumn1,
+            this.iDTABLEDataGridViewTextBoxColumn,
+            this.rOWDataGridViewTextBoxColumn,
+            this.dESCRIPTIONDataGridViewTextBoxColumn1});
+            this.Dgv_TableRow.DataSource = this.dMROWBindingSource;
             this.Dgv_TableRow.Location = new System.Drawing.Point(545, 58);
             this.Dgv_TableRow.MultiSelect = false;
             this.Dgv_TableRow.Name = "Dgv_TableRow";
@@ -235,6 +262,80 @@
             this.txt_FilterRow.TabIndex = 25;
             this.txt_FilterRow.TextChanged += new System.EventHandler(this.txt_FilterRow_TextChanged);
             // 
+            // dMTABLEBindingSource
+            // 
+            this.dMTABLEBindingSource.DataSource = typeof(helpDeskTools.Class.Database.HdToolDB.PartialClass.DM_TABLE);
+            // 
+            // iDDataGridViewTextBoxColumn
+            // 
+            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
+            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
+            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
+            this.iDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.iDDataGridViewTextBoxColumn.Visible = false;
+            this.iDDataGridViewTextBoxColumn.Width = 47;
+            // 
+            // iDCONNECTIONDataGridViewTextBoxColumn
+            // 
+            this.iDCONNECTIONDataGridViewTextBoxColumn.DataPropertyName = "ID_CONNECTION";
+            this.iDCONNECTIONDataGridViewTextBoxColumn.HeaderText = "ID_CONNECTION";
+            this.iDCONNECTIONDataGridViewTextBoxColumn.Name = "iDCONNECTIONDataGridViewTextBoxColumn";
+            this.iDCONNECTIONDataGridViewTextBoxColumn.ReadOnly = true;
+            this.iDCONNECTIONDataGridViewTextBoxColumn.Visible = false;
+            this.iDCONNECTIONDataGridViewTextBoxColumn.Width = 128;
+            // 
+            // tABLENAMEDataGridViewTextBoxColumn
+            // 
+            this.tABLENAMEDataGridViewTextBoxColumn.DataPropertyName = "TABLENAME";
+            this.tABLENAMEDataGridViewTextBoxColumn.HeaderText = "TABLENAME";
+            this.tABLENAMEDataGridViewTextBoxColumn.Name = "tABLENAMEDataGridViewTextBoxColumn";
+            this.tABLENAMEDataGridViewTextBoxColumn.ReadOnly = true;
+            this.tABLENAMEDataGridViewTextBoxColumn.Width = 102;
+            // 
+            // dESCRIPTIONDataGridViewTextBoxColumn
+            // 
+            this.dESCRIPTIONDataGridViewTextBoxColumn.DataPropertyName = "DESCRIPTION";
+            this.dESCRIPTIONDataGridViewTextBoxColumn.HeaderText = "DESCRIPTION";
+            this.dESCRIPTIONDataGridViewTextBoxColumn.Name = "dESCRIPTIONDataGridViewTextBoxColumn";
+            this.dESCRIPTIONDataGridViewTextBoxColumn.ReadOnly = true;
+            this.dESCRIPTIONDataGridViewTextBoxColumn.Visible = false;
+            this.dESCRIPTIONDataGridViewTextBoxColumn.Width = 108;
+            // 
+            // dMROWBindingSource
+            // 
+            this.dMROWBindingSource.DataSource = typeof(helpDeskTools.Class.Database.HdToolDB.PartialClass.DM_ROW);
+            // 
+            // iDDataGridViewTextBoxColumn1
+            // 
+            this.iDDataGridViewTextBoxColumn1.DataPropertyName = "ID";
+            this.iDDataGridViewTextBoxColumn1.HeaderText = "ID";
+            this.iDDataGridViewTextBoxColumn1.Name = "iDDataGridViewTextBoxColumn1";
+            this.iDDataGridViewTextBoxColumn1.ReadOnly = true;
+            this.iDDataGridViewTextBoxColumn1.Visible = false;
+            // 
+            // iDTABLEDataGridViewTextBoxColumn
+            // 
+            this.iDTABLEDataGridViewTextBoxColumn.DataPropertyName = "ID_TABLE";
+            this.iDTABLEDataGridViewTextBoxColumn.HeaderText = "ID_TABLE";
+            this.iDTABLEDataGridViewTextBoxColumn.Name = "iDTABLEDataGridViewTextBoxColumn";
+            this.iDTABLEDataGridViewTextBoxColumn.ReadOnly = true;
+            this.iDTABLEDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // rOWDataGridViewTextBoxColumn
+            // 
+            this.rOWDataGridViewTextBoxColumn.DataPropertyName = "ROW";
+            this.rOWDataGridViewTextBoxColumn.HeaderText = "ROW";
+            this.rOWDataGridViewTextBoxColumn.Name = "rOWDataGridViewTextBoxColumn";
+            this.rOWDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dESCRIPTIONDataGridViewTextBoxColumn1
+            // 
+            this.dESCRIPTIONDataGridViewTextBoxColumn1.DataPropertyName = "DESCRIPTION";
+            this.dESCRIPTIONDataGridViewTextBoxColumn1.HeaderText = "DESCRIPTION";
+            this.dESCRIPTIONDataGridViewTextBoxColumn1.Name = "dESCRIPTIONDataGridViewTextBoxColumn1";
+            this.dESCRIPTIONDataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dESCRIPTIONDataGridViewTextBoxColumn1.Visible = false;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -246,7 +347,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Main";
             this.Text = "Main";
-            this.Load += new System.EventHandler(this.Main_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Dgv_TableName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv_TableRow)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Navigator)).EndInit();
@@ -254,6 +354,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.Documentazione)).EndInit();
             this.Documentazione.ResumeLayout(false);
             this.Documentazione.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dMTABLEBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dMROWBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -276,6 +378,16 @@
         private ComponentFactory.Krypton.Docking.KryptonDockableNavigator Navigator;
         private ComponentFactory.Krypton.Navigator.KryptonPage Documentazione;
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox txt_FilterRow;
+        private System.Windows.Forms.BindingSource dMTABLEBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn iDCONNECTIONDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tABLENAMEDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dESCRIPTIONDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource dMROWBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn iDTABLEDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rOWDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dESCRIPTIONDataGridViewTextBoxColumn1;
     }
 }
 

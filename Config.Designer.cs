@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.txtAddress = new System.Windows.Forms.TextBox();
             this.txtPwd = new System.Windows.Forms.TextBox();
             this.txtUser = new System.Windows.Forms.TextBox();
@@ -38,6 +39,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnCancel = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnSave = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.dgv_ConnectionList = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
+            this.dMCONNECTIONBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cONNECTIONSTRINGDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_ConnectionList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dMCONNECTIONBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // txtAddress
@@ -123,11 +130,43 @@
             this.btnSave.Values.Text = "Salva";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // dgv_ConnectionList
+            // 
+            this.dgv_ConnectionList.AutoGenerateColumns = false;
+            this.dgv_ConnectionList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgv_ConnectionList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
+            this.dgv_ConnectionList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_ConnectionList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.iDDataGridViewTextBoxColumn,
+            this.cONNECTIONSTRINGDataGridViewTextBoxColumn});
+            this.dgv_ConnectionList.DataSource = this.dMCONNECTIONBindingSource;
+            this.dgv_ConnectionList.Location = new System.Drawing.Point(291, 30);
+            this.dgv_ConnectionList.Name = "dgv_ConnectionList";
+            this.dgv_ConnectionList.Size = new System.Drawing.Size(723, 170);
+            this.dgv_ConnectionList.TabIndex = 10;
+            // 
+            // dMCONNECTIONBindingSource
+            // 
+            this.dMCONNECTIONBindingSource.DataSource = typeof(helpDeskTools.Class.Database.HdToolDB.PartialClass.DM_CONNECTION);
+            // 
+            // iDDataGridViewTextBoxColumn
+            // 
+            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
+            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
+            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
+            // 
+            // cONNECTIONSTRINGDataGridViewTextBoxColumn
+            // 
+            this.cONNECTIONSTRINGDataGridViewTextBoxColumn.DataPropertyName = "CONNECTIONSTRING";
+            this.cONNECTIONSTRINGDataGridViewTextBoxColumn.HeaderText = "CONNECTIONSTRING";
+            this.cONNECTIONSTRINGDataGridViewTextBoxColumn.Name = "cONNECTIONSTRINGDataGridViewTextBoxColumn";
+            // 
             // Config
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(329, 251);
+            this.ClientSize = new System.Drawing.Size(1069, 251);
+            this.Controls.Add(this.dgv_ConnectionList);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.label4);
@@ -140,6 +179,8 @@
             this.Controls.Add(this.txtAddress);
             this.Name = "Config";
             this.Text = "Config";
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_ConnectionList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dMCONNECTIONBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -157,5 +198,9 @@
         private System.Windows.Forms.Label label4;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnCancel;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnSave;
+        private ComponentFactory.Krypton.Toolkit.KryptonDataGridView dgv_ConnectionList;
+        private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cONNECTIONSTRINGDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource dMCONNECTIONBindingSource;
     }
 }

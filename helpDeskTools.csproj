@@ -71,7 +71,8 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ApplicationIcon>Logo-ARXivar_marchio.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ComponentFactory.Krypton.Docking">
@@ -99,14 +100,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\ConnectionString\ArxConnectionString.cs" />
     <Compile Include="Class\ConnectionString\HDToolConnectionString.cs" />
-    <Compile Include="Class\ConnectionString\IConnectionString.cs" />
     <Compile Include="Class\Database\ArxDB.cs" />
     <Compile Include="Class\Database\BaseDb.cs" />
     <Compile Include="Class\Database\HdToolDB\PartialClass\DM_CONNECTION.cs" />
     <Compile Include="Class\Database\HdToolDB\PartialClass\DM_ROW.cs" />
     <Compile Include="Class\Database\HdToolDB\PartialClass\DM_TABLE.cs" />
-    <Compile Include="Class\Database\HdToolDB\HDToolDB.cs" />
     <Compile Include="Class\Database\HdToolDB\PartialClass\HelpDeskToolsDb.cs" />
     <Compile Include="Class\Database\IBaseDb.cs" />
     <Compile Include="Config.cs">
@@ -142,6 +142,9 @@
     <None Include="app.config" />
     <None Include="helpDeskTools_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest" />
+    <None Include="Properties\DataSources\helpDeskTools.Class.Database.HdToolDB.PartialClass.DM_CONNECTION.datasource" />
+    <None Include="Properties\DataSources\helpDeskTools.Class.Database.HdToolDB.PartialClass.DM_ROW.datasource" />
+    <None Include="Properties\DataSources\helpDeskTools.Class.Database.HdToolDB.PartialClass.DM_TABLE.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -161,7 +164,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Img\Logo-ARXivar_marchio.png" />
-    <Content Include="Logo-ARXivar_marchio.ico" />
     <Content Include="Script\ScriptNomeTabelle.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

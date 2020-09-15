@@ -39,6 +39,7 @@ namespace helpDeskTools.Class.Database.HdToolDB.PartialClass
 			OnCreated();
 		}
 
+		public static string ID_ALIAS = "ID";
 		[Column(Storage = "_ID", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
 		public int ID
 		{
@@ -59,6 +60,7 @@ namespace helpDeskTools.Class.Database.HdToolDB.PartialClass
 			}
 		}
 
+		public static string IDCONNECTION_ALIAS = "IdConnection";
 		[Column(Storage = "_ID_CONNECTION", DbType = "Int")]
 		public System.Nullable<int> ID_CONNECTION
 		{
@@ -79,6 +81,7 @@ namespace helpDeskTools.Class.Database.HdToolDB.PartialClass
 			}
 		}
 
+		public static string TABLENAME_ALIAS = "TableName";
 		[Column(Storage = "_TABLENAME", DbType = "VarChar(500)")]
 		public string TABLENAME
 		{
@@ -99,6 +102,7 @@ namespace helpDeskTools.Class.Database.HdToolDB.PartialClass
 			}
 		}
 
+		public static string DESCRIPTION_ALIAS = "Description";
 		[Column(Storage = "_DESCRIPTION", DbType = "VarChar(500)")]
 		public string DESCRIPTION
 		{
