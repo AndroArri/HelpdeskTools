@@ -66,7 +66,7 @@ namespace helpDeskTools
 
             if (Dgv_TableName.SelectedCells.Count == 0) return;
             int selectedRowIndex = Dgv_TableName.SelectedCells[0].RowIndex;
-            _TableNameSelected = Dgv_TableName.Rows[selectedRowIndex].Cells[0].Value.ToString();
+            _TableNameSelected = Dgv_TableName.Rows[selectedRowIndex].Cells[ArxDb.TABLENAME].Value.ToString();
             Lbl_TableName.Text = _TableNameSelected;
             Rtb_TableNameDescription.Text = hdToolDb.GetArxDescriptionTable(_TableNameSelected);
             
@@ -87,7 +87,7 @@ namespace helpDeskTools
         private void LoadRowDescription()
         {
             int selectedRowIndex = Dgv_TableRow.SelectedCells[0].RowIndex;
-            string rowNameSelected = Dgv_TableRow.Rows[selectedRowIndex].Cells[ArxDb.TABLENAME].Value.ToString();
+            string rowNameSelected = Dgv_TableRow.Rows[selectedRowIndex].Cells[ArxDb.COLUMNNAME].Value.ToString();
 
             //GetArxDescriptionRow
             Rtb_DescriptionRow.Text = hdToolDb.GetArxDescriptionRow(_TableNameSelected, rowNameSelected);
