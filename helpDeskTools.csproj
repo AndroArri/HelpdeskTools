@@ -100,7 +100,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class\ConnectionString\ArxConnectionString.cs" />
     <Compile Include="Class\ConnectionString\HDToolConnectionString.cs" />
     <Compile Include="Class\Database\ArxDB.cs" />
     <Compile Include="Class\Database\BaseDb.cs" />
