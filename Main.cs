@@ -5,6 +5,7 @@ using helpDeskTools.Class.Database;
 using helpDeskTools.Class.Database.HdToolDB;
 using System.Data.Linq;
 using System.Linq;
+using ComponentFactory.Krypton.Toolkit;
 using helpDeskTools.Class.ConnectionString;
 using helpDeskTools.Class.Database.HdToolDB.PartialClass;
 
@@ -42,7 +43,19 @@ namespace helpDeskTools
 
         private void btn_SaveDescriptionRow_Click(object sender, EventArgs e)
         {
-            hdToolDb.SubmitChanges();
+            try
+            {
+                hdToolDb.SubmitChanges();
+                KryptonMessageBox.Show(this, "Modifiche salvate corretamente", "Salvataggio riuscito",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception exception)
+            {
+                KryptonMessageBox.Show(this, "Attenzione: Problema nel salvataggio", "Salvataggio ",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
+            
         }
 
         private void btn_CancelDescriptionTableName_Click(object sender, EventArgs e)
@@ -109,6 +122,13 @@ namespace helpDeskTools
             hdToolDb.DM_ROWs.FirstOrDefault(x => x.ROW == descriptionSelected).DESCRIPTION = Rtb_DescriptionRow.Text;
         }
 
+        private void Rtb_TableNameDescription_Leave(object sender, EventArgs e)
+        {
+            var rowIndex = Dgv_TableName.SelectedCells[0].RowIndex;
+            var descriptionSelected = Dgv_TableName.Rows[rowIndex].Cells[ArxDb.TABLENAME].Value;
+            hdToolDb.DM_TABLEs.FirstOrDefault(x => x.TABLENAME == descriptionSelected).DESCRIPTION = Rtb_TableNameDescription.Text;
+        }
+
         #endregion
 
         #region  Filter Tables
@@ -161,6 +181,7 @@ namespace helpDeskTools
 
             return dataView;
         }
+
 
         #endregion
 

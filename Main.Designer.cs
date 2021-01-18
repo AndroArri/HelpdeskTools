@@ -160,6 +160,7 @@
             this.Rtb_TableNameDescription.Size = new System.Drawing.Size(219, 178);
             this.Rtb_TableNameDescription.TabIndex = 20;
             this.Rtb_TableNameDescription.Text = "";
+            this.Rtb_TableNameDescription.Leave += new System.EventHandler(this.Rtb_TableNameDescription_Leave);
             // 
             // Rtb_DescriptionRow
             // 
