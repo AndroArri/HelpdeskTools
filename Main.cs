@@ -119,14 +119,30 @@ namespace helpDeskTools
         {
             var rowIndex = Dgv_TableRow.SelectedCells[0].RowIndex;
             var descriptionSelected = Dgv_TableRow.Rows[rowIndex].Cells[1].Value;
-            hdToolDb.DM_ROWs.FirstOrDefault(x => x.ROW == descriptionSelected).DESCRIPTION = Rtb_DescriptionRow.Text;
+            try
+            {
+                hdToolDb.DM_ROWs.FirstOrDefault(x => x.ROW == descriptionSelected).DESCRIPTION = Rtb_DescriptionRow.Text;
+            }
+            catch (Exception exception)
+            {
+                //Se non trova la riga all'interno del database, perchè la descrizione è vuota, non faccio niente
+            }
+
         }
 
         private void Rtb_TableNameDescription_Leave(object sender, EventArgs e)
         {
             var rowIndex = Dgv_TableName.SelectedCells[0].RowIndex;
             var descriptionSelected = Dgv_TableName.Rows[rowIndex].Cells[ArxDb.TABLENAME].Value;
-            hdToolDb.DM_TABLEs.FirstOrDefault(x => x.TABLENAME == descriptionSelected).DESCRIPTION = Rtb_TableNameDescription.Text;
+            try
+            {
+                hdToolDb.DM_TABLEs.FirstOrDefault(x => x.TABLENAME != null && x.TABLENAME == descriptionSelected).DESCRIPTION = Rtb_TableNameDescription.Text;
+            }
+            catch (Exception exception)
+            {
+                //Se non trova la tabella all'interno del database, perchè la descrizione è vuota, non faccio niente
+            }
+
         }
 
         #endregion
