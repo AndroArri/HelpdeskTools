@@ -40,22 +40,15 @@
             this.Dgv_TableRow = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.Rtb_TableNameDescription = new ComponentFactory.Krypton.Toolkit.KryptonRichTextBox();
             this.Rtb_DescriptionRow = new ComponentFactory.Krypton.Toolkit.KryptonRichTextBox();
-            this.btn_SaveTableNameDescription = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btn_CancelDescriptionTableName = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btn_SaveDescriptionRow = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.Navigator = new ComponentFactory.Krypton.Docking.KryptonDockableNavigator();
             this.Documentazione = new ComponentFactory.Krypton.Navigator.KryptonPage();
             this.txt_FilterRow = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.timer_FilterTable = new System.Windows.Forms.Timer(this.components);
+            this.timer_FilterRow = new System.Windows.Forms.Timer(this.components);
             this.dMTABLEBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.iDCONNECTIONDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tABLENAMEDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dESCRIPTIONDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dMROWBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.iDDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.iDTABLEDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rOWDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dESCRIPTIONDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv_TableName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv_TableRow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Navigator)).BeginInit();
@@ -133,16 +126,9 @@
             // 
             this.Dgv_TableName.AllowUserToAddRows = false;
             this.Dgv_TableName.AllowUserToDeleteRows = false;
-            this.Dgv_TableName.AutoGenerateColumns = false;
             this.Dgv_TableName.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.Dgv_TableName.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.Dgv_TableName.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Dgv_TableName.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.iDDataGridViewTextBoxColumn,
-            this.iDCONNECTIONDataGridViewTextBoxColumn,
-            this.tABLENAMEDataGridViewTextBoxColumn,
-            this.dESCRIPTIONDataGridViewTextBoxColumn});
-            this.Dgv_TableName.DataSource = this.dMTABLEBindingSource;
             this.Dgv_TableName.Location = new System.Drawing.Point(7, 58);
             this.Dgv_TableName.Name = "Dgv_TableName";
             this.Dgv_TableName.ReadOnly = true;
@@ -154,16 +140,9 @@
             // 
             this.Dgv_TableRow.AllowUserToAddRows = false;
             this.Dgv_TableRow.AllowUserToDeleteRows = false;
-            this.Dgv_TableRow.AutoGenerateColumns = false;
             this.Dgv_TableRow.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.Dgv_TableRow.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.Dgv_TableRow.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Dgv_TableRow.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.iDDataGridViewTextBoxColumn1,
-            this.iDTABLEDataGridViewTextBoxColumn,
-            this.rOWDataGridViewTextBoxColumn,
-            this.dESCRIPTIONDataGridViewTextBoxColumn1});
-            this.Dgv_TableRow.DataSource = this.dMROWBindingSource;
             this.Dgv_TableRow.Location = new System.Drawing.Point(545, 58);
             this.Dgv_TableRow.MultiSelect = false;
             this.Dgv_TableRow.Name = "Dgv_TableRow";
@@ -189,19 +168,11 @@
             this.Rtb_DescriptionRow.Size = new System.Drawing.Size(219, 178);
             this.Rtb_DescriptionRow.TabIndex = 21;
             this.Rtb_DescriptionRow.Text = "";
-            // 
-            // btn_SaveTableNameDescription
-            // 
-            this.btn_SaveTableNameDescription.Location = new System.Drawing.Point(334, 242);
-            this.btn_SaveTableNameDescription.Name = "btn_SaveTableNameDescription";
-            this.btn_SaveTableNameDescription.Size = new System.Drawing.Size(90, 25);
-            this.btn_SaveTableNameDescription.TabIndex = 22;
-            this.btn_SaveTableNameDescription.Values.Text = "Salva";
-            this.btn_SaveTableNameDescription.Click += new System.EventHandler(this.btn_SaveDescriptionTableName_Click);
+            this.Rtb_DescriptionRow.Leave += new System.EventHandler(this.Rtb_DescriptionRow_Leave);
             // 
             // btn_CancelDescriptionTableName
             // 
-            this.btn_CancelDescriptionTableName.Location = new System.Drawing.Point(437, 242);
+            this.btn_CancelDescriptionTableName.Location = new System.Drawing.Point(1038, 417);
             this.btn_CancelDescriptionTableName.Name = "btn_CancelDescriptionTableName";
             this.btn_CancelDescriptionTableName.Size = new System.Drawing.Size(90, 25);
             this.btn_CancelDescriptionTableName.TabIndex = 23;
@@ -210,7 +181,7 @@
             // 
             // btn_SaveDescriptionRow
             // 
-            this.btn_SaveDescriptionRow.Location = new System.Drawing.Point(1038, 242);
+            this.btn_SaveDescriptionRow.Location = new System.Drawing.Point(942, 417);
             this.btn_SaveDescriptionRow.Name = "btn_SaveDescriptionRow";
             this.btn_SaveDescriptionRow.Size = new System.Drawing.Size(90, 25);
             this.btn_SaveDescriptionRow.TabIndex = 24;
@@ -238,7 +209,6 @@
             this.Documentazione.Controls.Add(this.Dgv_TableName);
             this.Documentazione.Controls.Add(this.btn_CancelDescriptionTableName);
             this.Documentazione.Controls.Add(this.label1);
-            this.Documentazione.Controls.Add(this.btn_SaveTableNameDescription);
             this.Documentazione.Controls.Add(this.Rtb_TableNameDescription);
             this.Documentazione.Controls.Add(this.Rtb_DescriptionRow);
             this.Documentazione.Controls.Add(this.Lbl_TableName);
@@ -262,79 +232,23 @@
             this.txt_FilterRow.TabIndex = 25;
             this.txt_FilterRow.TextChanged += new System.EventHandler(this.txt_FilterRow_TextChanged);
             // 
+            // timer_FilterTable
+            // 
+            this.timer_FilterTable.Interval = 500;
+            this.timer_FilterTable.Tick += new System.EventHandler(this.timer_FilterTable_tick);
+            // 
+            // timer_FilterRow
+            // 
+            this.timer_FilterRow.Interval = 500;
+            this.timer_FilterRow.Tick += new System.EventHandler(this.timer_FilterRow_Tick);
+            // 
             // dMTABLEBindingSource
             // 
             this.dMTABLEBindingSource.DataSource = typeof(helpDeskTools.Class.Database.HdToolDB.PartialClass.DM_TABLE);
             // 
-            // iDDataGridViewTextBoxColumn
-            // 
-            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
-            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
-            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
-            this.iDDataGridViewTextBoxColumn.ReadOnly = true;
-            this.iDDataGridViewTextBoxColumn.Visible = false;
-            this.iDDataGridViewTextBoxColumn.Width = 47;
-            // 
-            // iDCONNECTIONDataGridViewTextBoxColumn
-            // 
-            this.iDCONNECTIONDataGridViewTextBoxColumn.DataPropertyName = "ID_CONNECTION";
-            this.iDCONNECTIONDataGridViewTextBoxColumn.HeaderText = "ID_CONNECTION";
-            this.iDCONNECTIONDataGridViewTextBoxColumn.Name = "iDCONNECTIONDataGridViewTextBoxColumn";
-            this.iDCONNECTIONDataGridViewTextBoxColumn.ReadOnly = true;
-            this.iDCONNECTIONDataGridViewTextBoxColumn.Visible = false;
-            this.iDCONNECTIONDataGridViewTextBoxColumn.Width = 128;
-            // 
-            // tABLENAMEDataGridViewTextBoxColumn
-            // 
-            this.tABLENAMEDataGridViewTextBoxColumn.DataPropertyName = "TABLENAME";
-            this.tABLENAMEDataGridViewTextBoxColumn.HeaderText = "TABLENAME";
-            this.tABLENAMEDataGridViewTextBoxColumn.Name = "tABLENAMEDataGridViewTextBoxColumn";
-            this.tABLENAMEDataGridViewTextBoxColumn.ReadOnly = true;
-            this.tABLENAMEDataGridViewTextBoxColumn.Width = 102;
-            // 
-            // dESCRIPTIONDataGridViewTextBoxColumn
-            // 
-            this.dESCRIPTIONDataGridViewTextBoxColumn.DataPropertyName = "DESCRIPTION";
-            this.dESCRIPTIONDataGridViewTextBoxColumn.HeaderText = "DESCRIPTION";
-            this.dESCRIPTIONDataGridViewTextBoxColumn.Name = "dESCRIPTIONDataGridViewTextBoxColumn";
-            this.dESCRIPTIONDataGridViewTextBoxColumn.ReadOnly = true;
-            this.dESCRIPTIONDataGridViewTextBoxColumn.Visible = false;
-            this.dESCRIPTIONDataGridViewTextBoxColumn.Width = 108;
-            // 
             // dMROWBindingSource
             // 
             this.dMROWBindingSource.DataSource = typeof(helpDeskTools.Class.Database.HdToolDB.PartialClass.DM_ROW);
-            // 
-            // iDDataGridViewTextBoxColumn1
-            // 
-            this.iDDataGridViewTextBoxColumn1.DataPropertyName = "ID";
-            this.iDDataGridViewTextBoxColumn1.HeaderText = "ID";
-            this.iDDataGridViewTextBoxColumn1.Name = "iDDataGridViewTextBoxColumn1";
-            this.iDDataGridViewTextBoxColumn1.ReadOnly = true;
-            this.iDDataGridViewTextBoxColumn1.Visible = false;
-            // 
-            // iDTABLEDataGridViewTextBoxColumn
-            // 
-            this.iDTABLEDataGridViewTextBoxColumn.DataPropertyName = "ID_TABLE";
-            this.iDTABLEDataGridViewTextBoxColumn.HeaderText = "ID_TABLE";
-            this.iDTABLEDataGridViewTextBoxColumn.Name = "iDTABLEDataGridViewTextBoxColumn";
-            this.iDTABLEDataGridViewTextBoxColumn.ReadOnly = true;
-            this.iDTABLEDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // rOWDataGridViewTextBoxColumn
-            // 
-            this.rOWDataGridViewTextBoxColumn.DataPropertyName = "ROW";
-            this.rOWDataGridViewTextBoxColumn.HeaderText = "ROW";
-            this.rOWDataGridViewTextBoxColumn.Name = "rOWDataGridViewTextBoxColumn";
-            this.rOWDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dESCRIPTIONDataGridViewTextBoxColumn1
-            // 
-            this.dESCRIPTIONDataGridViewTextBoxColumn1.DataPropertyName = "DESCRIPTION";
-            this.dESCRIPTIONDataGridViewTextBoxColumn1.HeaderText = "DESCRIPTION";
-            this.dESCRIPTIONDataGridViewTextBoxColumn1.Name = "dESCRIPTIONDataGridViewTextBoxColumn1";
-            this.dESCRIPTIONDataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dESCRIPTIONDataGridViewTextBoxColumn1.Visible = false;
             // 
             // Main
             // 
@@ -372,22 +286,15 @@
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridView Dgv_TableRow;
         private ComponentFactory.Krypton.Toolkit.KryptonRichTextBox Rtb_TableNameDescription;
         private ComponentFactory.Krypton.Toolkit.KryptonRichTextBox Rtb_DescriptionRow;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btn_SaveTableNameDescription;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btn_CancelDescriptionTableName;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btn_SaveDescriptionRow;
         private ComponentFactory.Krypton.Docking.KryptonDockableNavigator Navigator;
         private ComponentFactory.Krypton.Navigator.KryptonPage Documentazione;
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox txt_FilterRow;
         private System.Windows.Forms.BindingSource dMTABLEBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn iDCONNECTIONDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tABLENAMEDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dESCRIPTIONDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource dMROWBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn iDTABLEDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn rOWDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dESCRIPTIONDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.Timer timer_FilterTable;
+        private System.Windows.Forms.Timer timer_FilterRow;
     }
 }
 

@@ -18,6 +18,8 @@ namespace helpDeskTools
         private HelpDeskToolsDb hdToolDb = new HelpDeskToolsDb(HdToolConnectionString.ConnectionString);
         private DataTable tableName = new DataTable();
         private DataTable tableRow = new DataTable();
+        private Timer _timer = new Timer();
+
 
         public Main()
         {
@@ -26,7 +28,10 @@ namespace helpDeskTools
             tableName = arxDb.ExtractTableName();
             Dgv_TableName.DataSource = tableName;
             Dgv_TableRow.DataSource = tableRow;
+            Dgv_TableRow.Columns[ArxDb.TABLENAME].Visible = false;
         }
+
+        #region  buttons
 
         private void Btn_Config_Click(object sender, EventArgs e)
         {
@@ -35,151 +40,129 @@ namespace helpDeskTools
 
         }
 
-        private void Dgv_DescriptionTableName_SelectionChanged(object sender, EventArgs e)
+        private void btn_SaveDescriptionRow_Click(object sender, EventArgs e)
         {
-            if (Dgv_TableName.SelectedCells.Count > 0)
-            {
-                LoadTableNameDescription();
-                DataView dataView = new DataView(tableRow)
-                {
-                    RowFilter = string.Format("TableName = '{0}'", _TableNameSelected)
-                };
-                Dgv_TableRow.DataSource = dataView;
-                Dgv_TableRow.Columns[0].Visible = false;
-
-            }
-
-        }
-
-        private void Dgv_DescriptionTableRow_SelectionChanged(object sender, EventArgs e)
-        {
-            if (Dgv_TableName.SelectedCells.Count > 0)
-            {
-                LoadRowDescription();
-            }
-
-        }
-
-
-        private void btn_SaveDescriptionTableName_Click(object sender, EventArgs e)
-        {
-
-            
-            MessageBox.Show(
-                hdToolDb.SaveArxDescriptionTable(_TableNameSelected, Rtb_TableNameDescription.Text, arxDb.IdConnectionString)
-                    ? "Descrizione tabella salvata con successo"
-                    : "Errore durante il salvataggio della descrizione della tabella");
+            hdToolDb.SubmitChanges();
         }
 
         private void btn_CancelDescriptionTableName_Click(object sender, EventArgs e)
         {
-            LoadTableNameDescription();
+            RefreshAll();
         }
 
-        private void LoadTableNameDescription()
+        private void RefreshAll()
         {
-            if (Dgv_TableName.SelectedCells.Count == 0 || Dgv_TableName.RowCount == 0) return;
+            hdToolDb.Refresh(RefreshMode.OverwriteCurrentValues);
+        }
 
+
+
+        #endregion
+
+        #region  Table selection changed
+
+        private void Dgv_DescriptionTableName_SelectionChanged(object sender, EventArgs e)
+        {
+
+            if (Dgv_TableName.SelectedCells.Count == 0) return;
             int selectedRowIndex = Dgv_TableName.SelectedCells[0].RowIndex;
-            _TableNameSelected = Dgv_TableName.Rows[selectedRowIndex].Cells[DM_TABLE.TABLENAME_ALIAS].Value.ToString();
+            _TableNameSelected = Dgv_TableName.Rows[selectedRowIndex].Cells[0].Value.ToString();
             Lbl_TableName.Text = _TableNameSelected;
             Rtb_TableNameDescription.Text = hdToolDb.GetArxDescriptionTable(_TableNameSelected);
+            
+            
+            DataView dataview = new DataView(tableRow)
+            {
+                RowFilter = string.Format("Tablename = '{0}'", _TableNameSelected)
+            };
+            Dgv_TableRow.DataSource = dataview;
+
+            if (Dgv_TableRow.SelectedCells.Count != 0)
+            {
+                LoadRowDescription();
+            }
+            
         }
-
-
 
         private void LoadRowDescription()
         {
-            if (Dgv_TableRow.SelectedCells.Count == 0) return;
             int selectedRowIndex = Dgv_TableRow.SelectedCells[0].RowIndex;
-            string rowNameSelected = Dgv_TableRow.Rows[selectedRowIndex].Cells[1].Value.ToString();
-            lbl_NameDescriptionRow.Text = rowNameSelected;
+            string rowNameSelected = Dgv_TableRow.Rows[selectedRowIndex].Cells[ArxDb.TABLENAME].Value.ToString();
+
             //GetArxDescriptionRow
             Rtb_DescriptionRow.Text = hdToolDb.GetArxDescriptionRow(_TableNameSelected, rowNameSelected);
-
+            lbl_NameDescriptionRow.Text = rowNameSelected;
         }
 
-        private void btn_SaveDescriptionRow_Click(object sender, EventArgs e)
+        private void Dgv_DescriptionTableRow_SelectionChanged(object sender, EventArgs e)
         {
-            int selectedRowIndex = Dgv_TableRow.SelectedCells[0].RowIndex;
-            string rowNameSelected = Dgv_TableRow.Rows[selectedRowIndex].Cells[1].Value.ToString();
-
-            hdToolDb.SaveArxDescriptionRow(arxDb.IdConnectionString,  _TableNameSelected, rowNameSelected, Rtb_DescriptionRow.Text);
-        }
-
-        private void txt_FindTable_TextChanged(object sender, EventArgs e)
-        {
-            try
+            if (Dgv_TableRow.SelectedCells.Count > 0)
             {
-                if (txt_FindTable.Text.Length >= 3)
-                {
-                    SetFilter();
-                }
-                else
-                {
-                    Dgv_TableName.DataSource = tableName;
-                }
-
-        }
-            catch (Exception exception)
-            {
-                throw new Exception(exception.Message);
+                LoadRowDescription();
             }
         }
 
-        private bool SetFilter()
+        private void Rtb_DescriptionRow_Leave(object sender, EventArgs e)
         {
+            var rowIndex = Dgv_TableRow.SelectedCells[0].RowIndex;
+            var descriptionSelected = Dgv_TableRow.Rows[rowIndex].Cells[1].Value;
+            hdToolDb.DM_ROWs.FirstOrDefault(x => x.ROW == descriptionSelected).DESCRIPTION = Rtb_DescriptionRow.Text;
+        }
+
+        #endregion
+
+        #region  Filter Tables
+
+        private void timer_FilterTable_tick(object sender, EventArgs e)
+        {
+            timer_FilterTable.Stop();
             if (txt_FindTable.Text.Length >= 1)
             {
-                DataView dataView = new DataView(tableName)
-                {
-                    RowFilter = string.Format("TableName LIKE '%{0}%'", txt_FindTable.Text)
-                };
-                Dgv_TableName.DataSource = dataView;
-            }
-            else if (txt_FindTable.Text.Length == 0)
-            {
-                Dgv_TableName.DataSource = tableName;
-            }
-
-            return true;
-        }
-
-
-
-        private void txt_FilterRow_TextChanged(object sender, EventArgs e)
-        {
-            if (txt_FilterRow.Text.Length >= 2)
-            {
-                DataView dataView = new DataView(tableRow)
-                {
-                    RowFilter = string.Format("ColumnName = '{0}'", txt_FilterRow.Text)
-                };
-                if (dataView.Count == 0) return;
-                
-                string filter = "TableName IN ({0})";
-                string element = "";
-
-                foreach (DataRowView dataRowView in dataView)
-                {
-                    element = string.Concat(element, string.Format("'{0}',", dataRowView["TableName"]));    
-                }
-
-                filter = string.Format(filter, element);
-                filter = filter.Remove(filter.LastIndexOf(","), 1);
-
-                DataView dataViewTableName = new DataView(tableName)
-                {
-                    RowFilter = filter
-                };
-
-                Dgv_TableName.DataSource = dataViewTableName;
+                Dgv_TableName.DataSource = SetFilter(tableName, ArxDb.TABLENAME, txt_FindTable.Text);
             }
             else
             {
                 Dgv_TableName.DataSource = tableName;
             }
         }
+
+        private void timer_FilterRow_Tick(object sender, EventArgs e)
+        {
+            timer_FilterRow.Stop();
+            if (txt_FilterRow.Text.Length >= 3)
+            {
+                Dgv_TableRow.DataSource = SetFilter(tableRow, ArxDb.COLUMNNAME, txt_FilterRow.Text);
+            }
+            else
+            {
+                Dgv_TableRow.DataSource = tableRow;
+            }
+        }
+        private void txt_FindTable_TextChanged(object sender, EventArgs e)
+        {
+            timer_FilterTable.Stop();
+            timer_FilterTable.Start();
+        }
+
+        private void txt_FilterRow_TextChanged(object sender, EventArgs e)
+        {
+            timer_FilterRow.Stop();
+            timer_FilterRow.Start();
+        }
+
+
+        private DataView SetFilter(DataTable table, string columnToSearch, string txtToFind)
+        {
+
+            DataView dataView = new DataView(table)
+            {
+                RowFilter = string.Format("{0} LIKE '%{1}%'", columnToSearch, txtToFind)
+            };
+
+            return dataView;
+        }
+
+        #endregion
 
         
     }
