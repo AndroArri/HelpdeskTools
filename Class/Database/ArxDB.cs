@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Linq;
+using System.Deployment.Application;
 using System.Linq;
 using System.Text;
 using helpDeskTools.Class.ConnectionString;
 using helpDeskTools.Class.Database.HdToolDB;
 using helpDeskTools.Class.Database.HdToolDB.PartialClass;
+using Microsoft.SqlServer.Server;
 
 namespace helpDeskTools.Class.Database
 {
@@ -13,26 +16,38 @@ namespace helpDeskTools.Class.Database
     {
 
         private HelpDeskToolsDb _hdToolDB;
-        private ArxConnectionString _arxConnection;
+        private Table<DM_CONNECTION> dmConnection;
+        private DM_CONNECTION arxConn;
 
-        public string ConnectionString => _arxConnection.ConnectionString;
+        public const string TABLENAME = "TableName";
+        public const string COLUMNNAME = "ColumnName";
+        public const string DATATYPE = "DataType";
+        public const string DATALENGTH = "DataLength";
 
-        public int IdConnectionString => _arxConnection.Id;
 
-        public ArxDb()
+        public string ConnectionString => arxConn.CONNECTIONSTRING;
+
+        public int IdConnectionString => arxConn.ID;
+
+        public ArxDb(string connectionString = "")
         {
             _hdToolDB = new HelpDeskToolsDb(HdToolConnectionString.ConnectionString);
-            _arxConnection = new ArxConnectionString(_hdToolDB);
+
+            dmConnection = _hdToolDB.DM_CONNECTIONs;
+
+            arxConn = string.IsNullOrEmpty(connectionString) ? dmConnection.FirstOrDefault() : dmConnection.FirstOrDefault(x => x.CONNECTIONSTRING == connectionString);
         }
         
         public DataTable ExtractTableName()
         { 
-            return ExecuteQuery("ScriptNomeTabelle.sql", _arxConnection.ConnectionString);
+            return ExecuteQuery("ScriptNomeTabelle.sql", arxConn.CONNECTIONSTRING);
+            
         }
 
+        
         public DataTable ExtractStructureDatabase()
         {
-            return ExecuteQuery("ScriptTabelle.sql",_arxConnection.ConnectionString);
+            return ExecuteQuery("ScriptTabelle.sql", arxConn.CONNECTIONSTRING);
         }
 
     }
