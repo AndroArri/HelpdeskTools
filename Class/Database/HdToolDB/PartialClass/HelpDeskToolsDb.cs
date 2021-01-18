@@ -14,7 +14,7 @@ namespace helpDeskTools.Class.Database.HdToolDB.PartialClass
         private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
 
         #region Extensibility Method Definitions
-        partial void OnCreated();
+
         partial void InsertDM_CONNECTION(DM_CONNECTION instance);
         partial void UpdateDM_CONNECTION(DM_CONNECTION instance);
         partial void DeleteDM_CONNECTION(DM_CONNECTION instance);
@@ -73,6 +73,12 @@ namespace helpDeskTools.Class.Database.HdToolDB.PartialClass
                 return this.GetTable<DM_TABLE>();
             }
         }
+        
+        private void OnCreated()
+        {
+
+        }
+
 
         public bool SaveArxConnectionString(SqlConnectionStringBuilder connectionString)
         {
@@ -182,24 +188,7 @@ namespace helpDeskTools.Class.Database.HdToolDB.PartialClass
         {
             try
             {
-                IQueryable<DM_TABLE> dmTables = DM_TABLEs.Where(x => x.TABLENAME == tableName);
-                if (dmTables.Any())
-                {
-                    dmTables.FirstOrDefault().DESCRIPTION = description;
-                }
-                else
-                {
-
-                    DM_TABLEs.InsertOnSubmit(new DM_TABLE
-                    {
-                        DESCRIPTION = description,
-                        ID_CONNECTION = idConnectionString,
-                        TABLENAME = tableName
-                    });
-
-
-                }
-                SubmitChanges();
+                
             }
             catch (Exception e)
             {
@@ -279,12 +268,9 @@ namespace helpDeskTools.Class.Database.HdToolDB.PartialClass
             {
                 IQueryable<DM_TABLE> dmTables = DM_TABLEs.Where(x => x.TABLENAME == tableName);
 
-                IQueryable<DM_ROW> dmRows = DM_ROWs.Where(x => (x.ROW == rowName) && (x.ID_TABLE == dmTables.FirstOrDefault().ID));
+                IQueryable<DM_ROW> dmRows = DM_ROWs.Where(x => x.ROW == rowName);
 
-                if (!dmRows.Any()) return "";
-
-                return dmRows.FirstOrDefault().DESCRIPTION;
-
+                return !dmRows.Any() ? "" : dmRows.FirstOrDefault()?.DESCRIPTION;
             }
             catch (Exception e)
             {

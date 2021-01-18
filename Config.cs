@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.Linq;
 using System.Windows.Forms;
 using helpDeskTools.Class.ConnectionString;
 using helpDeskTools.Class.Database;
@@ -37,10 +38,7 @@ namespace helpDeskTools
             MessageBox.Show(hdToolDb.SaveArxConnectionString(txtAddress.Text, txtNameDb.Text, txtUser.Text, txtPwd.Text)
                 ? "Stringa di connessione configurata correttamente"
                 : "Stringa di connessione già presente all'interno del database");
-
-            this.Close();
-
-
+            hdToolDb.Refresh(RefreshMode.OverwriteCurrentValues);
         }
     }
 }
