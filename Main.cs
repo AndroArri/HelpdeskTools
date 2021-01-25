@@ -119,13 +119,23 @@ namespace helpDeskTools
         {
             var rowIndex = Dgv_TableRow.SelectedCells[0].RowIndex;
             var descriptionSelected = Dgv_TableRow.Rows[rowIndex].Cells[1].Value;
+
+            var tableIndex = Dgv_TableName.SelectedCells[0].RowIndex;
+            string tableNameSelected = Dgv_TableName.Rows[tableIndex].Cells[ArxDb.TABLENAME].Value.ToString();
+
+            int idTable = hdToolDb.GetIdDescriptionTable(tableNameSelected);
             try
             {
-                hdToolDb.DM_ROWs.FirstOrDefault(x => x.ROW == descriptionSelected).DESCRIPTION = Rtb_DescriptionRow.Text;
+                
+
+                hdToolDb.DM_ROWs.FirstOrDefault(x => x.ROW == descriptionSelected && x.ID_TABLE == idTable).DESCRIPTION = Rtb_DescriptionRow.Text;
             }
             catch (Exception exception)
             {
-                //Se non trova la riga all'interno del database, perchè la descrizione è vuota, non faccio niente
+                //Se non trova la riga all'interno del database, perchè la descrizione è vuota, aggiungo la nuova descrizione
+                string tableName = Dgv_TableName.SelectedCells[0].Value.ToString();
+                hdToolDb.SaveArxDescriptionRow(arxDb.IdConnectionString, tableName, descriptionSelected.ToString(),
+                    Rtb_DescriptionRow.Text);
             }
 
         }
@@ -133,14 +143,18 @@ namespace helpDeskTools
         private void Rtb_TableNameDescription_Leave(object sender, EventArgs e)
         {
             var rowIndex = Dgv_TableName.SelectedCells[0].RowIndex;
-            var descriptionSelected = Dgv_TableName.Rows[rowIndex].Cells[ArxDb.TABLENAME].Value;
+            string tableNameSelected = Dgv_TableName.Rows[rowIndex].Cells[ArxDb.TABLENAME].Value.ToString();
             try
             {
-                hdToolDb.DM_TABLEs.FirstOrDefault(x => x.TABLENAME != null && x.TABLENAME == descriptionSelected).DESCRIPTION = Rtb_TableNameDescription.Text;
+                if (hdToolDb.DM_TABLEs != null)
+                    hdToolDb.DM_TABLEs.FirstOrDefault(x => x.TABLENAME != null && x.TABLENAME == tableNameSelected)
+                        .DESCRIPTION = Rtb_TableNameDescription.Text;
             }
             catch (Exception exception)
             {
                 //Se non trova la tabella all'interno del database, perchè la descrizione è vuota, non faccio niente
+                
+                hdToolDb.SaveArxDescriptionTable(tableNameSelected, Rtb_TableNameDescription.Text, arxDb.IdConnectionString);
             }
 
         }
@@ -200,7 +214,5 @@ namespace helpDeskTools
 
 
         #endregion
-
-        
     }
 }

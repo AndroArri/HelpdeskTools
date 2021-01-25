@@ -123,7 +123,7 @@ namespace helpDeskTools.Class.Database.HdToolDB.PartialClass
 
 
         //Caricamento stringa connessione ARX
-        public string LoadArxConnectionString()
+        public string GetArxConnectionString()
         {
             IQueryable<string> connectionString =
                 from dmConnection in DM_CONNECTIONs
@@ -135,11 +135,11 @@ namespace helpDeskTools.Class.Database.HdToolDB.PartialClass
         }
 
         //Recupero ID della connection
-        public int GetIdArxConnectionString(IDbConnection connectionString)
+        public int GetIdArxConnectionString(string connectionString)
         {
             IQueryable<int> id =
                 from dmConnection in DM_CONNECTIONs
-                where dmConnection.CONNECTIONSTRING == connectionString.ConnectionString
+                where dmConnection.CONNECTIONSTRING == connectionString
                 select dmConnection.ID;
             return id.Any() ? 0 : id.FirstOrDefault();
         }
@@ -189,6 +189,12 @@ namespace helpDeskTools.Class.Database.HdToolDB.PartialClass
             try
             {
                 
+                DM_TABLEs.InsertOnSubmit(new DM_TABLE()
+                {
+                    TABLENAME = tableName,
+                    DESCRIPTION = description,
+                    ID_CONNECTION = idConnectionString
+                });
             }
             catch (Exception e)
             {
@@ -267,8 +273,9 @@ namespace helpDeskTools.Class.Database.HdToolDB.PartialClass
             try
             {
                 IQueryable<DM_TABLE> dmTables = DM_TABLEs.Where(x => x.TABLENAME == tableName);
+                int idTable = dmTables.FirstOrDefault().ID;
 
-                IQueryable<DM_ROW> dmRows = DM_ROWs.Where(x => x.ROW == rowName);
+                IQueryable<DM_ROW> dmRows = DM_ROWs.Where(x => x.ROW == rowName && x.ID_TABLE == idTable);
 
                 return !dmRows.Any() ? "" : dmRows.FirstOrDefault()?.DESCRIPTION;
             }
