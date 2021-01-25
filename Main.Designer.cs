@@ -112,6 +112,7 @@
             this.Btn_Config.Size = new System.Drawing.Size(90, 25);
             this.Btn_Config.TabIndex = 16;
             this.Btn_Config.Values.Text = "Impostazioni";
+            this.Btn_Config.Visible = false;
             this.Btn_Config.Click += new System.EventHandler(this.Btn_Config_Click);
             // 
             // txt_FindTable
